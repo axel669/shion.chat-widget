@@ -1,0 +1,13 @@
+.ws-style {
+    --gradient-bg:
+        [bg linear-gradient(rgba(0, 0, 64, 1), rgba(0, 0, 0, 1) 50%)]
+    ;
+    --text-outline: "-webkit-text-stroke: 1px white";
+    --name-style:
+        "color: {$}"
+        [p 4px 8px]
+        [b 1px solid red]
+        [bg rgba(0, 0, 0, 0.75)]
+        [r 40px]
+    ;
+}

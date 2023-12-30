@@ -1,0 +1,32 @@
+{
+    "tags": {
+        "badgeInfo": "subscriber/60",
+        "badges": [
+            "broadcaster/1",
+            "subscriber/12",
+            "twitchconNA2023/1"
+        ],
+        "clientNonce": "5e7ff8cd5bd2267f028f47e1fc7592ab",
+        "color": "#1E90FF",
+        "displayName": "axel669",
+        "emotes": "",
+        "firstMsg": false,
+        "flags": "",
+        "id": "dac49c0e-5d65-4e21-9b9c-7ec6d0fe46f4",
+        "mod": false,
+        "returningChatter": "0",
+        "roomID": "64263610",
+        "subscriber": true,
+        "tmiSentTS": "1703626174293",
+        "turbo": false,
+        "userID": "64263610",
+        "userType": "",
+        "broadcaster": true,
+        "vip": false
+    },
+    "source": ":axel669!axel669@axel669.tmi.twitch.tv",
+    "command": "PRIVMSG",
+    "channel": "axel669",
+    "message": "generate ref",
+    "type": "chat.message"
+}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=5,minimum-scale=1,width=device-width">
+        <title>Custom Chat Widget</title>
+        <link rel="stylesheet" href="./settings/$[id]/style.css" ws-root />
+    </head>
+    <body ws-x="@theme:dark [font Inter] [bg transparent]">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0px;
+            }
+            img {
+                vertical-align: middle;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/@axel669/windstorm@0.3.0-beta.1/dist/browser.js"></script>
+        <div id="chat-messages"
+            ws-x="[flex] [gap 8px] [w 100vw] [h 100vh] [over hidden]">
+        </div>
+        <script type="module">
+            import { Chat } from "https://esm.sh/@axel669/twitch/browser/module.mjs"
+            import config from "./settings/$[id]/config.js"
+
+            import testMessages from "./src/tests.js"
+            import createMessage from "./src/message.js"
+            import ref from "./src/ref.js"
+
+            const [globalBadges, userBadges] = await Promise.all([
+                fetch("https://shion-chat-api.axel669.net/badges/global").then(res => res.json()),
+                fetch(`https://shion-chat-api.axel669.net/badges/${config.userID}`).then(res => res.json())
+            ])
+
+            const badgeURL = {}
+            for (const badge of globalBadges) {
+                for (const version of badge.versions) {
+                    const key = `${badge.set_id}/${version.id}`
+                    badgeURL[key] = version.image_url_1x
+                }
+            }
+            for (const badge of userBadges) {
+                for (const version of badge.versions) {
+                    const key = `${badge.set_id}/${version.id}`
+                    badgeURL[key] = version.image_url_1x
+                }
+            }
+            ref.badgeURL = badgeURL
+            ref.chatHTML = config.chatHTML
+
+            const messages = document.querySelector("#chat-messages")
+
+            const chat = Chat({
+                user: {
+                    name: "justinfan669",
+                    token: "",
+                },
+                channel: config.channel
+            })
+
+            const appendMessage = (chatMessage) => {
+                messages.append(chatMessage)
+                if (messages.children.length > 30) {
+                    messages.children[0].remove()
+                }
+                setTimeout(
+                    () => messages.scrollTop = messages.scrollHeight,
+                    40
+                )
+            }
+            chat.on(
+                "chat.message",
+                ({ data }) => {
+                    console.log(data)
+                    const chatMessage = createMessage(data)
+                    appendMessage(chatMessage)
+                }
+            )
+            // chat.on("chat.*", console.log)
+            chat.on("connect", () => console.log("connected"))
+            chat.connect()
+
+            for (const message of testMessages) {
+                appendMessage(
+                    createMessage(message)
+                )
+            }
+        </script>
+    </body>
+</html>
