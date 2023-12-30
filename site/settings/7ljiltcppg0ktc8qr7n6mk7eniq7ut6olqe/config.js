@@ -16,6 +16,7 @@ export default {
     userID: "64263610",
     container: `
         <div id="chat-wrapper" ws-x="@theme:dark [font Inter] [chat-wrapper]">
+            <img src="./images/hexbg.svg" ws-x="[disp none]" />
             <div id="chat-messages"
                 ws-x="[flex] [gap 4px]">
             </div>
@@ -26,7 +27,7 @@ export default {
         const border = borderColor(data.tags)
 
         return `
-            <div ws-x="[message-bg]">
+            <div ws-x="[message-bg]" class="enter">
                 <div ws-x="[z 10] [m.l 4px] [p 4px]
                 [w max-content]">
                     <img src="https://cdn.frankerfacez.com/avatar/twitch/${data.tags.userID}"
