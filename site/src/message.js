@@ -29,7 +29,7 @@ const createMessage = (data) => {
     const messageHTML = fillEmotes(data.message, data.tags.emotes)
     const badges = data.tags.badges.map(
         name => `<img src="${ref.badgeURL[name]}" />`
-    ).join("")
+    )
 
     template.innerHTML = ref.chatHTML(
         data, messageHTML, badges

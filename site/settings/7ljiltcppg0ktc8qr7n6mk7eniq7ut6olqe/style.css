@@ -1,13 +1,22 @@
 .ws-style {
-    --gradient-bg:
-        [bg linear-gradient(rgba(0, 0, 64, 1), rgba(0, 0, 0, 1) 50%)]
+    --message-bg:
+        /* [bg linear-gradient(rgba(0, 0, 64, 1), rgba(0, 0, 0, 1) 50%)] */
+        [bg url("./images/hexbg.svg")]
+        [r 8px]
+        [b 1px solid #002626]
+        [p 4px]
     ;
     --text-outline: "-webkit-text-stroke: 1px white";
     --name-style:
         "color: {$}"
         [p 4px 8px]
-        [b 1px solid red]
-        [bg rgba(0, 0, 0, 0.75)]
-        [r 40px]
+        [b.w 1px]
+        [bg black]
+        [r 4px]
+    ;
+    --chat-wrapper:
+        [w 100vw]
+        [h 100vh]
+        [over hidden]
     ;
 }

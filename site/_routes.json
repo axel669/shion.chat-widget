@@ -5,6 +5,7 @@
     ],
     "exclude": [
         "/settings/*",
-        "/src/*"
+        "/src/*",
+        "/images/*"
     ]
 }
