@@ -70,10 +70,12 @@ const url = new URL(location)
 const testFile = url.searchParams.get("tests")
 
 if (testFile !== null) {
+    const wait = (time) => new Promise(resolve => setTimeout(resolve, time))
     const module = await import(testFile)
     for (const message of module.default) {
         appendMessage(
             createMessage(message)
         )
+        await wait(500)
     }
 }
