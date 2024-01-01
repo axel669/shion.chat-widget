@@ -1,0 +1,38 @@
+.ws-style {
+    --message-bg:
+        /* [bg linear-gradient(rgba(0, 0, 64, 1), rgba(0, 0, 0, 1) 50%)] */
+        /* [bg url("./images/hexbg.svg")] */
+        /* [r 8px] */
+        /* [b 2px solid @primary] */
+        [p 2px]
+    ;
+    --text-outline: "-webkit-text-stroke: 1px white";
+    --name-style:
+        "color: {$}"
+        [p 4px 8px]
+        [b.w 1px]
+        [bg black]
+        [r 4px]
+    ;
+    --chat-wrapper:
+        [w 100vw]
+        [h 100vh]
+        [over hidden]
+    ;
+}
+
+@keyframes enter-animation {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacty: 1;
+        transform: scale(1);
+    }
+}
+.enter {
+    animation-name: enter-animation;
+    animation-duration: 500ms;
+    animation-iteration-count: 1;
+}
