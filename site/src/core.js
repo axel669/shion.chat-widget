@@ -76,6 +76,6 @@ if (testFile !== null) {
         appendMessage(
             createMessage(message)
         )
-        await wait(500)
+        await wait(250)
     }
 }
