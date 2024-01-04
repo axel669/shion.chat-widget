@@ -28,16 +28,17 @@ export default {
 
         return `
             <div ws-x="[message-bg]" class="enter">
-                <div ws-x="[z 10] [m.l 4px] [p 4px]
+                <div ws-x="[z 10] [p 4px]
                 [w max-content]">
                     <img src="https://cdn.frankerfacez.com/avatar/twitch/${data.tags.userID}"
-                    ws-x="[w 32px] [h 32px]" />
-                    <span ws-x="[name-style ${data.tags.color}] [b.c ${border}]">
+                    ws-x="[w 32px] [h 32px] [r 50%]" class="avatar" />
+                    <span ws-x="[name-style ${data.tags.color}] [b.c ${border}]
+                    [disp inline-block] [h 32px]">
                         ${data.tags.displayName} ${badges.join("")}
                     </span>
                     <!-- @ ${new Date(sent).toLocaleTimeString()} -->
                 </div>
-                <div ws-x="[p 4px] [t.lh 28px]">
+                <div ws-x="[p 4px] [p.l 24px] [t.lh 28px]">
                     ${messageHTML}
                 </div>
             </div>

@@ -31,8 +31,9 @@ export default {
                 <div ws-x="[z 10] [m.l 4px] [p 4px]
                 [w max-content]">
                     <img src="https://cdn.frankerfacez.com/avatar/twitch/${data.tags.userID}"
-                    ws-x="[w 32px] [h 32px]" />
-                    <span ws-x="[name-style ${data.tags.color}] [b.c ${border}]">
+                    ws-x="[w 32px] [h 32px]" class="avatar" />
+                    <span ws-x="[name-style ${data.tags.color}] [b.c ${border}]
+                    [disp inline-block] [h 32px]">
                         ${data.tags.displayName} ${badges.join("")}
                     </span>
                     <!-- @ ${new Date(sent).toLocaleTimeString()} -->
