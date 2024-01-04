@@ -1,0 +1,50 @@
+@font-face {
+    font-family: Sublime;
+    src: url("./sublime-font.woff2");
+}
+
+.ws-style {
+    --message-bg:
+        [bg url("./images/hexbg.svg")]
+        [r 8px]
+        [b 2px solid @primary]
+        [p 4px]
+    ;
+    --name-style:
+        "color: {$}"
+        [p 4px 8px]
+        [b.w 1px]
+        [bg black]
+        [r 4px]
+    ;
+    --chat-wrapper:
+        [w 100vw]
+        [h 100vh]
+        [over hidden]
+        [bg url("./settings/7ljimav4uo3bbutcv5jerv7vfp2qhd1uuq9/sublime.webp")]
+    ;
+    --message-wrapper:
+        [pos absolute]
+        [x 1px]
+        [y 80px]
+        [w 588px]
+        [h 552px]
+        [over hidden]
+    ;
+}
+
+@keyframes enter-animation {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacty: 1;
+        transform: scale(1);
+    }
+}
+.enter {
+    animation-name: enter-animation;
+    animation-duration: 500ms;
+    animation-iteration-count: 1;
+}
