@@ -35,12 +35,10 @@
 
 @keyframes enter-animation {
     from {
-        opacity: 0;
-        transform: scale(0);
+        transform: translateY(100%);
     }
     to {
-        opacty: 1;
-        transform: scale(1);
+        transform: translateY(0px);
     }
 }
 .enter {
