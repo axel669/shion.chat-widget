@@ -3,42 +3,12 @@ import { Chat } from "https://esm.sh/@axel669/twitch/browser/module.mjs"
 // import testMessages from "./tests.js"
 import createMessage from "./message.js"
 import ref from "./ref.js"
-
-const [globalBadges, userBadges] = await Promise.all([
-    fetch("https://shion-chat-api.axel669.net/badges/global")
-        .then(res => res.json()),
-    fetch(`https://shion-chat-api.axel669.net/badges/${ref.config.userID}`)
-        .then(res => res.json())
-])
-
-const badgeURL = {}
-for (const badge of globalBadges) {
-    for (const version of badge.versions) {
-        const key = `${badge.set_id}/${version.id}`
-        badgeURL[key] = version.image_url_1x
-    }
-}
-for (const badge of userBadges) {
-    for (const version of badge.versions) {
-        const key = `${badge.set_id}/${version.id}`
-        badgeURL[key] = version.image_url_1x
-    }
-}
-ref.badgeURL = badgeURL
-ref.chatHTML = ref.config.chatHTML
+import "./setup.js"
 
 const template = document.createElement("template")
 template.innerHTML = ref.config.container
 document.body.append(template.content)
 const messages = document.querySelector("#chat-messages")
-const wrapper = document.querySelector("#chat-wrapper")
-
-const observer = new ResizeObserver(
-    ([change]) => {
-        wrapper.scrollTo(0, change.contentRect.height)
-    }
-)
-observer.observe(messages)
 
 const chat = Chat({
     user: {
@@ -76,6 +46,6 @@ if (testFile !== null) {
         appendMessage(
             createMessage(message)
         )
-        await wait(250)
+        await wait(500)
     }
 }

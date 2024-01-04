@@ -1,8 +1,5 @@
 import ref from "./ref.js"
 
-const emoteURL = (id) =>
-    `https://static-cdn.jtvnw.net/emoticons/v2/${id}/default/dark/1.0`
-
 const replacers = {
     "&": "&amp;",
     "<": "&lt;",
@@ -15,30 +12,34 @@ const escape = (value) =>
 
 const emoteRegex = /(?<id>\w+):(?<start>\d+)\-(?<end>\d+)/g
 const fillEmotes = (source, emoteSource) => {
-    if (emoteSource.length === 0) {
-        return escape(source)
-    }
-
-    const emotes = Array.from(
-        emoteSource.matchAll(emoteRegex),
-        (match) => [
-            source.substring(match.groups.start, parseInt(match.groups.end) + 1),
-            match.groups.id
-        ]
-    )
+    const emotes =
+        (emoteSource.length === 0)
+        ? []
+        : Array.from(
+            emoteSource.matchAll(emoteRegex),
+            (match) => [
+                source.substring(match.groups.start, parseInt(match.groups.end) + 1),
+                `https://static-cdn.jtvnw.net/emoticons/v2/${match.groups.id}/default/dark/1.0`
+            ]
+        )
     const mapping = Object.fromEntries(emotes)
     const emoteRegexSource =
-        Object.keys(mapping)
-        .map(key => key.replace(/[\:\)\\\/\|\-\+\[\]\~\$\^\.]/g, "\\$&"))
+        [...Object.keys(mapping), ...ref.externalKeys]
+        .map(key => key.replace(/[\:\)\\\/\|\-\+\[\]\~\$\^\.\&\(]/g, "\\$&"))
         .join("|")
     // console.log(emoteRegexSource)
-    const messageRegex = new RegExp(`(^|\\s)(${emoteRegexSource})(\\s|$)`, "g")
-    console.log(messageRegex)
-    console.log(mapping)
-    console.log(escape(source))
+    const messageRegex = new RegExp(
+        `(?<=^|\\s)(${emoteRegexSource})(?=\\s|$)`, "g"
+    )
+    // console.log(messageRegex)
+    // console.log(mapping)
+    // console.log(...escape(source).matchAll(messageRegex))
     return escape(source).replace(
         messageRegex,
-        (_, head, text, tail) => `${head}<img src="${emoteURL(mapping[text])}" ws-x="[w 28px] [h 28px]" />${tail}`
+        (text) => {
+            const url = mapping[text] ?? ref.externalEmotes[text]
+            return `<img src="${url}" ws-x="[w 28px] [h 28px]" />`
+        }
     )
 }
 
