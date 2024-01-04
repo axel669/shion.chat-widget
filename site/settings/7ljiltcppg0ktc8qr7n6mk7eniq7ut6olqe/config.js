@@ -18,7 +18,7 @@ export default {
         <div id="chat-wrapper" ws-x="@theme:dark [font Inter] [chat-wrapper]">
             <img src="./images/hexbg.svg" ws-x="[disp none]" />
             <div id="chat-messages"
-                ws-x="[flex] [gap 4px]">
+                ws-x="[flex] [gap 4px] [pos absolute] [inset.x 0px] [-y 0px]">
             </div>
         </div>
     `,
