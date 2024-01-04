@@ -23,17 +23,15 @@ const fillEmotes = (source, emoteSource) => {
             ]
         )
     const mapping = Object.fromEntries(emotes)
+
     const emoteRegexSource =
         [...Object.keys(mapping), ...ref.externalKeys]
         .map(key => key.replace(/[\:\)\\\/\|\-\+\[\]\~\$\^\.\&\(]/g, "\\$&"))
         .join("|")
-    // console.log(emoteRegexSource)
     const messageRegex = new RegExp(
         `(?<=^|\\s)(${emoteRegexSource})(?=\\s|$)`, "g"
     )
-    // console.log(messageRegex)
-    // console.log(mapping)
-    // console.log(...escape(source).matchAll(messageRegex))
+
     return escape(source).replace(
         messageRegex,
         (text) => {
