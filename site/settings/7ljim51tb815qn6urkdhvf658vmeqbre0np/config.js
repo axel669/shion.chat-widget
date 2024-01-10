@@ -34,7 +34,8 @@ export default {
                     ws-x="[w 32px] [h 32px]" class="avatar" />
                     <span ws-x="[name-style ${data.tags.color}] [b.c ${border}]
                     [disp inline-block] [h 32px]">
-                        ${data.tags.displayName} ${badges.join("")}
+                        ${data.tags.displayName}
+                        <span ws-x="[disp inline-block] [tf translateY(-4px)]">${badges.join("")}</span>
                     </span>
                     <!-- @ ${new Date(sent).toLocaleTimeString()} -->
                 </div>

@@ -4,6 +4,7 @@
         /* [bg url("./images/hexbg.svg")] */
         /* [r 8px] */
         /* [b 2px solid @primary] */
+        [bg rgba(0, 0, 0, 0.5)]
         [p 2px]
     ;
     --text-outline: "-webkit-text-stroke: 1px white";
