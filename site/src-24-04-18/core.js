@@ -46,6 +46,7 @@ const url = new URL(location)
 const testFile = url.searchParams.get("tests")
 
 if (testFile !== null) {
+    document.body.setAttribute("ws-x", "[bg black]")
     const wait = (time) => new Promise(resolve => setTimeout(resolve, time))
     const module = await import(testFile)
     for (const message of module.default) {
