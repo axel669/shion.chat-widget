@@ -29,10 +29,16 @@ chat.on(
     ({ data }) => {
         console.log(data)
         const chatMessage = createMessage(data)
+        chatMessage.children[0].setAttribute("data-msg-id", data.tags.id)
         appendMessage(chatMessage)
     }
 )
-// chat.on("chat.*", console.log)
+chat.on(
+    "CLEARMSG",
+    ({ data }) => {
+        document.querySelector(`[data-msg-id="${data.tags.targetMsgID}"]`)?.remove()
+    }
+)
 chat.on("connect", () => console.log("connected"))
 chat.connect()
 
