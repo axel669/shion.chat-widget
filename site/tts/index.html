@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=5,minimum-scale=1,width=device-width">
+        <title>Serris TTS</title>
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/@axel669/windstorm@0.3.8/dist/browser.js"></script>
+        <div ws-x="[w 186px] [h 277px] [pos absolute] [x 50%] [y 50%] [tf translate(-50%, -50%)]">
+            <img src="/images/serris/inactive.png" id="thing" />
+            <img src="/images/serris/inactive.png" ws-x="[hide]" />
+            <img src="/images/serris/active.png" ws-x="[hide]" />
+        </div>
+        <div id="status"></div>
+        <script type="module">
+            import { Chat, EventSub, Multi } from "https://esm.sh/@axel669/twitch/browser/module.mjs"
+
+            const url = new URL(document.location)
+            const token = url.searchParams.get("token")
+
+            const twitch = Multi({
+                connectors: [EventSub],
+                user: {
+                    name: "xserris",
+                    id: "206621705",
+                    token,
+                },
+                clientID: "6net4tt1o054ehn80jijztk7ij5zo8",
+                topics: [
+                    "channel.channel_points_custom_reward_redemption.add"
+                ]
+            })
+            const img = document.querySelector("img#thing")
+            let voice = null
+
+            speechSynthesis.addEventListener(
+                "voiceschanged",
+                () => voice = window.speechSynthesis.getVoices().find(
+                    voice => voice.name.includes("Zira")
+                )
+            )
+            const responses = {
+                "Text-to-Speech (Nephenee)": async (data) => {
+                    img.src = "/images/serris/active.png"
+                    const msg = new SpeechSynthesisUtterance()
+                    msg.voice = voice
+                    msg.text = data.user_input
+                    msg.rate = 0.9
+                    msg.addEventListener(
+                        "end",
+                        () =>  img.src = "/images/serris/inactive.png"
+                    )
+                    speechSynthesis.speak(msg)
+                },
+            }
+            twitch.on(
+                "channel.channel_points_custom_reward_redemption.add",
+                ({ data }) => {
+                    const name = data.reward.title
+                    if (responses[name] === undefined) {
+                        return
+                    }
+                    responses[name](data)
+                }
+            )
+            twitch.connect()
+        </script>
+    </body>
+</html>
