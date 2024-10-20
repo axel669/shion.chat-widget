@@ -25,7 +25,7 @@ ref.chatHTML = ref.config.chatHTML
 
 const [bttvUserEmotes, bttvGlobalEmotes, sevtvUserEmotes, ffzUserEmotes] =
     await Promise.all([
-        fetch(`https://api.betterttv.net/3/cached/users/twitch/${ref.config.userID}`)
+        fetch(`https://api.betterttv.net/3/cached/users/twitch/${ref.config.userID}`, { signal: AbortSignal.timeout(15000) })
             .then(async (res) => {
                 if (res.ok === false) {
                     return []
@@ -34,10 +34,10 @@ const [bttvUserEmotes, bttvGlobalEmotes, sevtvUserEmotes, ffzUserEmotes] =
                 return [...info.sharedEmotes, ...info.channelEmotes]
             })
             .catch(() => []),
-        fetch("https://api.betterttv.net/3/cached/emotes/global")
+        fetch("https://api.betterttv.net/3/cached/emotes/global", { signal: AbortSignal.timeout(15000) })
             .then(res => res.json())
             .catch(() => []),
-        fetch(`https://7tv.io/v3/users/twitch/${ref.config.userID}`)
+        fetch(`https://7tv.io/v3/users/twitch/${ref.config.userID}`, { signal: AbortSignal.timeout(15000) })
             .then(async (res) => {
                 if (res.ok === false) {
                     return []
@@ -46,7 +46,7 @@ const [bttvUserEmotes, bttvGlobalEmotes, sevtvUserEmotes, ffzUserEmotes] =
                 return info.emote_set.emotes
             })
             .catch(() => []),
-        fetch(`https://api.frankerfacez.com/v1/room/${ref.config.channel}`)
+        fetch(`https://api.frankerfacez.com/v1/room/${ref.config.channel}`, { signal: AbortSignal.timeout(15000) })
             .then(async (res) => {
                 if (res.ok === false) {
                     return []
