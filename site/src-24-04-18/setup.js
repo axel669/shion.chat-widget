@@ -32,9 +32,11 @@ const [bttvUserEmotes, bttvGlobalEmotes, sevtvUserEmotes, ffzUserEmotes] =
                 }
                 const info = await res.json()
                 return [...info.sharedEmotes, ...info.channelEmotes]
-            }),
+            })
+            .catch(() => []),
         fetch("https://api.betterttv.net/3/cached/emotes/global")
-            .then(res => res.json()),
+            .then(res => res.json())
+            .catch(() => []),
         fetch(`https://7tv.io/v3/users/twitch/${ref.config.userID}`)
             .then(async (res) => {
                 if (res.ok === false) {
@@ -42,7 +44,8 @@ const [bttvUserEmotes, bttvGlobalEmotes, sevtvUserEmotes, ffzUserEmotes] =
                 }
                 const info = await res.json()
                 return info.emote_set.emotes
-            }),
+            })
+            .catch(() => []),
         fetch(`https://api.frankerfacez.com/v1/room/${ref.config.channel}`)
             .then(async (res) => {
                 if (res.ok === false) {
@@ -51,6 +54,7 @@ const [bttvUserEmotes, bttvGlobalEmotes, sevtvUserEmotes, ffzUserEmotes] =
                 const info = await res.json()
                 return Object.values(info.sets).map(set => set.emoticons).flat()
             })
+            .catch(() => [])
     ])
 
 ref.externalEmotes = {}
